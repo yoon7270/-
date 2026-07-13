@@ -462,6 +462,132 @@ h1,h2,h3{
 .gallery-item:hover{transform:translateY(-8px) scale(1.03); border-color:var(--gold); box-shadow:0 20px 36px var(--shadow-strong);}
 .gallery-item .ph-icon{font-size:22px; color:var(--gold);}
 
+/* ---------- mini demo: 미니 홀덤 체험 ---------- */
+.demo-note{
+  font-size:12.5px;
+  color:var(--muted);
+  margin-top:10px;
+}
+.poker-table{
+  background:
+    radial-gradient(ellipse 90% 100% at 50% 0%, rgba(212,175,55,0.06), transparent 60%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, var(--green-soft), var(--green-deep) 60%, #04140f 100%);
+  border:2px solid var(--gold);
+  border-radius:36px;
+  padding:44px 24px 36px;
+  box-shadow:inset 0 0 70px rgba(0,0,0,0.55), 0 30px 60px var(--shadow-strong);
+  position:relative;
+  overflow:hidden;
+}
+.table-area{
+  text-align:center;
+  margin-bottom:26px;
+}
+.area-label{
+  font-size:11px;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.card-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  min-height:96px;
+  flex-wrap:wrap;
+}
+.stage-label{
+  text-align:center;
+  font-size:11px;
+  color:var(--gold-bright);
+  margin-bottom:18px;
+  min-height:14px;
+}
+
+/* card flip */
+.poker-card{
+  width:60px;
+  height:84px;
+  perspective:600px;
+  opacity:0;
+  transform:translateY(22px) scale(0.85);
+  transition:opacity 0.4s ease, transform 0.4s ease;
+}
+.poker-card.appear{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.card-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:transform 0.6s cubic-bezier(0.4,0.2,0.2,1);
+}
+.poker-card.flipped .card-inner{transform:rotateY(180deg);}
+.card-face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  border-radius:8px;
+  border:1px solid var(--gold);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:6px 7px;
+  box-shadow:0 6px 14px var(--shadow-strong);
+}
+.card-back{
+  background:
+    repeating-linear-gradient(135deg, rgba(212,175,55,0.12) 0 6px, transparent 6px 12px),
+    linear-gradient(155deg, var(--green-deep), #04140f);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:rotateY(0deg);
+}
+.card-back .back-diamond{color:var(--gold); font-size:20px; opacity:0.7;}
+.card-front{
+  background:linear-gradient(155deg, #141614, #0a0b0a);
+  color:var(--ivory);
+  transform:rotateY(180deg);
+  font-family:'JetBrains Mono', monospace;
+}
+.card-front.red{color:#e0637a;}
+.card-front .corner{font-size:12px; font-weight:700; line-height:1;}
+.card-front .corner.bottom{align-self:flex-end; transform:rotate(180deg);}
+.card-front .center-suit{font-size:20px; align-self:center;}
+
+.result-display{
+  text-align:center;
+  margin-top:8px;
+  min-height:64px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 0.7s ease, transform 0.7s ease;
+}
+.result-display.show{opacity:1; transform:translateY(0);}
+.result-display .result-title{
+  font-size:clamp(22px,4vw,30px);
+  font-weight:800;
+  margin-bottom:8px;
+}
+.result-display .result-title.win{color:var(--gold-bright);}
+.result-display .result-title.lose{color:var(--muted);}
+.result-display .result-title.draw{color:var(--ivory);}
+.result-display .result-detail{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.demo-controls{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
 /* ---------- final cta ---------- */
 .final-cta{
   text-align:center;
@@ -570,6 +696,13 @@ footer .copyright{font-size:12px; color:var(--muted);}
   .final-cta{padding:90px 20px;}
   .final-cta h2{font-size:clamp(22px,7vw,30px);}
 
+  .poker-table{padding:32px 14px 28px; border-radius:24px;}
+  .poker-card{width:46px; height:66px;}
+  .card-front .center-suit{font-size:15px;}
+  .card-front .corner{font-size:9.5px;}
+  .card-row{gap:6px;}
+  .demo-controls{gap:10px;}
+
   .btn{padding:14px 28px; font-size:14px;}
 }
 
@@ -592,6 +725,7 @@ footer .copyright{font-size:12px; color:var(--muted);}
     <a href="#flow">진행 방식</a>
     <a href="#skills">필요 능력</a>
     <a href="#gallery">갤러리</a>
+    <a href="#demo">체험</a>
   </div>
   <button class="theme-toggle" id="themeToggle" aria-label="다크/라이트 모드 전환">
     <span class="icon-moon">&#9789;</span>
@@ -748,6 +882,45 @@ footer .copyright{font-size:12px; color:var(--muted);}
     <div class="gallery-item reveal"><span class="ph-icon">♣</span>이미지 자리 4</div>
     <div class="gallery-item reveal"><span class="ph-icon">♠</span>이미지 자리 5</div>
     <div class="gallery-item reveal"><span class="ph-icon">♥</span>이미지 자리 6</div>
+  </div>
+</section>
+
+<!-- 미니 홀덤 체험 -->
+<section id="demo">
+  <div class="section-head reveal">
+    <div class="eyebrow mono">Try it yourself</div>
+    <h2>미니 홀덤 체험</h2>
+    <p>실제 승부가 아니라 홀덤의 흐름과 족보를 가볍게 느껴보는 공간입니다</p>
+    <p class="demo-note">* 교육용 체험 콘텐츠이며, 실제 베팅이나 칩은 사용되지 않습니다</p>
+  </div>
+
+  <div class="poker-table reveal">
+    <div class="table-area">
+      <p class="area-label mono">Computer</p>
+      <div class="card-row" id="computerCards"></div>
+    </div>
+
+    <p class="stage-label mono" id="stageLabel">버튼을 눌러 한 판을 시작해 보세요</p>
+
+    <div class="table-area">
+      <p class="area-label mono">Community Cards</p>
+      <div class="card-row" id="communityCards"></div>
+    </div>
+
+    <div class="table-area">
+      <p class="area-label mono">Player</p>
+      <div class="card-row" id="playerCards"></div>
+    </div>
+
+    <div class="result-display" id="resultDisplay">
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-detail" id="resultDetail"></div>
+    </div>
+
+    <div class="demo-controls">
+      <button class="btn" id="dealBtn">한 판 체험하기</button>
+      <button class="btn btn-outline" id="replayBtn" style="display:none;">다시 플레이</button>
+    </div>
   </div>
 </section>
 
@@ -929,6 +1102,228 @@ footer .copyright{font-size:12px; color:var(--muted);}
     });
 
     start();
+  }
+
+  // ---------- 미니 홀덤 체험 ----------
+  var RANKS = [
+    {label:'2', value:2}, {label:'3', value:3}, {label:'4', value:4}, {label:'5', value:5},
+    {label:'6', value:6}, {label:'7', value:7}, {label:'8', value:8}, {label:'9', value:9},
+    {label:'10', value:10}, {label:'J', value:11}, {label:'Q', value:12}, {label:'K', value:13}, {label:'A', value:14}
+  ];
+  var SUITS = ['♠', '♥', '♦', '♣'];
+
+  function buildDeck(){
+    var deck = [];
+    for (var s = 0; s < SUITS.length; s++){
+      for (var r = 0; r < RANKS.length; r++){
+        deck.push({ label: RANKS[r].label, value: RANKS[r].value, suit: SUITS[s] });
+      }
+    }
+    return deck;
+  }
+
+  function shuffle(deck){
+    for (var i = deck.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = deck[i]; deck[i] = deck[j]; deck[j] = tmp;
+    }
+    return deck;
+  }
+
+  function isRedSuit(suit){ return suit === '♥' || suit === '♦'; }
+
+  function sleep(ms){
+    return new Promise(function(resolve){ setTimeout(resolve, ms); });
+  }
+
+  // 카드 하나를 생성해 지정 영역에 추가 (뒷면 -> 앞면 뒤집기 애니메이션 포함)
+  function dealCard(container, cardData, appearDelay, faceUp){
+    return new Promise(function(resolve){
+      var card = document.createElement('div');
+      card.className = 'poker-card';
+
+      var inner = document.createElement('div');
+      inner.className = 'card-inner';
+
+      var back = document.createElement('div');
+      back.className = 'card-face card-back';
+      back.innerHTML = '<span class="back-diamond">♠</span>';
+
+      var front = document.createElement('div');
+      front.className = 'card-face card-front' + (isRedSuit(cardData.suit) ? ' red' : '');
+      front.innerHTML =
+        '<span class="corner top">' + cardData.label + cardData.suit + '</span>' +
+        '<span class="center-suit">' + cardData.suit + '</span>' +
+        '<span class="corner bottom">' + cardData.label + cardData.suit + '</span>';
+
+      inner.appendChild(back);
+      inner.appendChild(front);
+      card.appendChild(inner);
+      container.appendChild(card);
+
+      setTimeout(function(){
+        card.classList.add('appear');
+        if (faceUp){
+          setTimeout(function(){
+            card.classList.add('flipped');
+            setTimeout(resolve, 650);
+          }, 220);
+        } else {
+          setTimeout(resolve, 450);
+        }
+      }, appearDelay);
+    });
+  }
+
+  // 7장(홀 2 + 커뮤니티 5) 중 간단한 족보만 판정: 하이카드 / 원페어 / 투페어 / 트리플(이상)
+  function evaluateHand(holeCards, communityCards){
+    var all = holeCards.concat(communityCards);
+    var counts = {};
+    all.forEach(function(c){
+      counts[c.value] = (counts[c.value] || 0) + 1;
+    });
+    var entries = Object.keys(counts).map(function(v){
+      return { value: parseInt(v, 10), count: counts[v] };
+    });
+    entries.sort(function(a, b){
+      return (b.count - a.count) || (b.value - a.value);
+    });
+
+    var top = entries[0];
+    var second = entries[1];
+
+    if (top.count >= 3){
+      return { score: 3, label: '트리플', key: top.value };
+    }
+    if (top.count === 2 && second && second.count === 2){
+      return { score: 2, label: '투페어', key: Math.max(top.value, second.value) };
+    }
+    if (top.count === 2){
+      return { score: 1, label: '원페어', key: top.value };
+    }
+    return { score: 0, label: '하이카드', key: entries[0].value };
+  }
+
+  function rankLabelByValue(value){
+    var found = RANKS.filter(function(r){ return r.value === value; })[0];
+    return found ? found.label : value;
+  }
+
+  var playerCardsEl = document.getElementById('playerCards');
+  var computerCardsEl = document.getElementById('computerCards');
+  var communityCardsEl = document.getElementById('communityCards');
+  var stageLabel = document.getElementById('stageLabel');
+  var resultDisplay = document.getElementById('resultDisplay');
+  var resultTitle = document.getElementById('resultTitle');
+  var resultDetail = document.getElementById('resultDetail');
+  var dealBtn = document.getElementById('dealBtn');
+  var replayBtn = document.getElementById('replayBtn');
+  var demoRunning = false;
+
+  function resetTable(){
+    playerCardsEl.innerHTML = '';
+    computerCardsEl.innerHTML = '';
+    communityCardsEl.innerHTML = '';
+    resultDisplay.classList.remove('show');
+    resultTitle.className = 'result-title';
+    resultTitle.textContent = '';
+    resultDetail.textContent = '';
+    stageLabel.textContent = '카드를 섞는 중...';
+  }
+
+  async function playRound(){
+    if (demoRunning) return;
+    demoRunning = true;
+    dealBtn.disabled = true;
+    replayBtn.style.display = 'none';
+    resetTable();
+
+    var deck = shuffle(buildDeck());
+    var playerHole = [deck.pop(), deck.pop()];
+    var computerHole = [deck.pop(), deck.pop()];
+    var community = [deck.pop(), deck.pop(), deck.pop(), deck.pop(), deck.pop()];
+
+    await sleep(300);
+
+    stageLabel.textContent = 'Player 카드 공개';
+    await Promise.all([
+      dealCard(playerCardsEl, playerHole[0], 0, true),
+      dealCard(playerCardsEl, playerHole[1], 180, true)
+    ]);
+
+    stageLabel.textContent = 'Computer 카드 배분';
+    await Promise.all([
+      dealCard(computerCardsEl, computerHole[0], 0, false),
+      dealCard(computerCardsEl, computerHole[1], 180, false)
+    ]);
+
+    await sleep(500);
+
+    stageLabel.textContent = 'Flop';
+    await Promise.all([
+      dealCard(communityCardsEl, community[0], 0, true),
+      dealCard(communityCardsEl, community[1], 150, true),
+      dealCard(communityCardsEl, community[2], 300, true)
+    ]);
+    await sleep(700);
+
+    stageLabel.textContent = 'Turn';
+    await dealCard(communityCardsEl, community[3], 0, true);
+    await sleep(700);
+
+    stageLabel.textContent = 'River';
+    await dealCard(communityCardsEl, community[4], 0, true);
+    await sleep(700);
+
+    stageLabel.textContent = 'Showdown';
+    var computerCardEls = computerCardsEl.querySelectorAll('.poker-card');
+    computerCardEls.forEach(function(el, i){
+      setTimeout(function(){ el.classList.add('flipped'); }, i * 200);
+    });
+    await sleep(900);
+
+    var playerEval = evaluateHand(playerHole, community);
+    var computerEval = evaluateHand(computerHole, community);
+
+    var winner;
+    if (playerEval.score !== computerEval.score){
+      winner = playerEval.score > computerEval.score ? 'player' : 'computer';
+    } else if (playerEval.key !== computerEval.key){
+      winner = playerEval.key > computerEval.key ? 'player' : 'computer';
+    } else {
+      winner = 'draw';
+    }
+
+    if (winner === 'player'){
+      resultTitle.textContent = 'Player Wins!';
+      resultTitle.classList.add('win');
+    } else if (winner === 'computer'){
+      resultTitle.textContent = 'Computer Wins!';
+      resultTitle.classList.add('lose');
+    } else {
+      resultTitle.textContent = 'Draw!';
+      resultTitle.classList.add('draw');
+    }
+    resultDetail.textContent =
+      'Player: ' + playerEval.label + ' (' + rankLabelByValue(playerEval.key) + ')  ·  ' +
+      'Computer: ' + computerEval.label + ' (' + rankLabelByValue(computerEval.key) + ')';
+    resultDisplay.classList.add('show');
+
+    stageLabel.textContent = '한 판이 종료되었습니다';
+    dealBtn.style.display = 'none';
+    replayBtn.style.display = 'inline-flex';
+    demoRunning = false;
+  }
+
+  if (dealBtn){
+    dealBtn.addEventListener('click', playRound);
+  }
+  if (replayBtn){
+    replayBtn.addEventListener('click', function(){
+      replayBtn.style.display = 'none';
+      dealBtn.style.display = 'inline-flex';
+      playRound();
+    });
   }
 })();
 </script>
